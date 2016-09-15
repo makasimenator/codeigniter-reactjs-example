@@ -1,13 +1,14 @@
 "use strict";
 
-/**!
- * Copyright (c) 2014, Facebook, Inc.
- * All rights reserved.
- *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
- */
+//var Row = require('./Row')
+// var Row = React.createClass({
+//   render: function () {
+//     return <tr style={{color: 'red'}}>{this.props.cells}</tr>
+//   }
+//
+// })
+
+
 var Table = React.createClass({
   displayName: "Table",
 
@@ -20,12 +21,8 @@ var Table = React.createClass({
           cell
         );
       });
-
-      return React.createElement(
-        "tr",
-        null,
-        cells
-      );
+      //      return null
+      return React.createElement(Row, { cells: cells });
     });
 
     return React.createElement(

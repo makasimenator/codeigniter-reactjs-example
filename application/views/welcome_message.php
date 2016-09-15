@@ -2,11 +2,12 @@
 include 'ReactJS.php';
 $rjsMainFile = dirname(__FILE__).'/build/react-bundle.js';
 $rjsTableFile = dirname(__FILE__).'/build/table.js';
+$rjsRowFile = dirname(__FILE__).'/build/Row.js';
 $rjs = new ReactJS(
   // app code
   file_get_contents($rjsMainFile),
   // app code
-  file_get_contents($rjsTableFile)
+  array (file_get_contents($rjsTableFile), file_get_contents($rjsRowFile))
 );
 
 $data =

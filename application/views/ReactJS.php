@@ -56,8 +56,11 @@ class ReactJS {
     $react[] = $libsrc;
     $react[] = "var React = global.React, ReactDOM = global.ReactDOM, ReactDOMServer = global.ReactDOMServer;";
     // app's components
-    $react[] = $appsrc;
-    $react[] = ';';
+    //$react[] = $appsrc;
+    foreach ($appsrc as $value) {
+      $react[] = $value;
+      $react[] = ';';
+    };
 
     $concatenated = implode(";\n", $react);
 
