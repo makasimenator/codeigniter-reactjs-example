@@ -1,3 +1,4 @@
+'use strict'
 const path = require('path')
 const webpack = require('webpack')
 
@@ -13,7 +14,14 @@ console.info('webpack', `${NODE_ENV.toUpperCase()} mode`)
 // ]
 const plugins = []
 
-let babelQuery = {}
+let babelQuery = {
+  cacheDirectory: true,
+  presets: [
+    'react',
+    'stage-0',
+    'es2015'
+  ]
+}
 
 // if (NODE_ENV === 'development') {
 //   babelQuery = { cacheDirectory: true, presets: ['react-hmre'] }
@@ -30,16 +38,20 @@ module.exports = {
     filename: 'table.js',
     publicPath: '/build/'
   },
-  plugins: plugins,
   module: {
     loaders: [
       {
         test: /\.js$/,
-        loader: 'babel-loader',
+        loader: 'babel',
         exclude: /node_modules/,
         include: __dirname,
         query: babelQuery
       }
     ]
+  },
+  externals: {
+    react: 'React',
+    'react-dom': 'ReactDOM',
+    jquery: 'jQuery',
   }
 }

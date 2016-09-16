@@ -1,29 +1,36 @@
 <?php
-include 'ReactJS.php';
-$rjsMainFile = dirname(__FILE__).'/build/react-bundle.js';
-$rjsTableFile = dirname(__FILE__).'/build/table.js';
-$rjsRowFile = dirname(__FILE__).'/build/Row.js';
-$rjs = new ReactJS(
-  // app code
-  file_get_contents($rjsMainFile),
-  // app code
-  array (file_get_contents($rjsTableFile), file_get_contents($rjsRowFile))
-);
+$v8 = new V8Js();
 
-$data =
-  array('data' => array(
-    array(1, 2, 3),
-    array(4, 5, 6),
-    array(7, 8, 9)
-  ));
+$props =
+   array('data' => array(
+     array(1, 2, 3),
+     array(4, 5, 6),
+     array(7, 8, 9)
+   ));
+$propsJson = json_encode($props);
 
-$rjs->setComponent('Table', $data)
+$react = [
+       file_get_contents(__DIR__.'/node_modules/react/dist/react.js'),
+       file_get_contents(__DIR__.'/node_modules/react-dom/dist/react-dom.min.js'),
+       file_get_contents(__DIR__.'/node_modules/react-dom/dist/react-dom-server.min.js'),
+       file_get_contents(__DIR__.'/build/table.js'),
+       'ReactDOMServer.renderToString(React.createElement(App, ' . $propsJson . '))'
+];
+
+try {
+	$reactStr = $v8->executeString(implode(PHP_EOL, $react));
+} catch (Exception $e) {
+	echo '<h1>', $e->getMessage(), '</h1>';
+	echo '<pre>', $e->getTraceAsString(), '</pre>';
+	exit;
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>Welcome to CodeIgniter</title>
+	<title>CodeIgniter + ReactJS views</title>
 
 	<style type="text/css">
 
@@ -88,27 +95,7 @@ $rjs->setComponent('Table', $data)
 <body>
 
 <div id="container">
-  <div id="page"><?php echo $rjs->getMarkup(); ?></div>
-  <!-- <script src="react/build/react.min.js"></script> -->
-  <!-- <script src="build/table.js"></script> -->
-	<h1>Welcome to CodeIgniter!</h1>
-
-	<div id="body">
-		<p>The page you are looking at is being generated dynamically by CodeIgniter.</p>
-
-		<p>If you would like to edit this page you'll find it located at:</p>
-		<code>application/views/welcome_message.php</code>
-
-		<p>The corresponding controller for this page is found at:</p>
-		<code>application/controllers/welcome.php</code>
-
-		<p>If you are exploring CodeIgniter for the very first time, you should start by reading the <a href="user_guide/">User Guide</a>.</p>
-<?php
-
-
-?>
-	</div>
-
+  <div class="container" style="margin-top: 20px; height:300px" id="app"><?= $reactStr; ?></div>
 	<p class="footer">Page rendered in <strong>{elapsed_time}</strong> seconds</p>
 </div>
 
