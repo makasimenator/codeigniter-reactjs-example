@@ -14,7 +14,7 @@ console.info('webpack', `${NODE_ENV.toUpperCase()} mode`)
 // ]
 const plugins = []
 
-let babelQuery = {
+var babelQuery = {
   cacheDirectory: true,
   presets: [
     'react',
@@ -31,11 +31,11 @@ let babelQuery = {
 
 module.exports = {
   devtool: 'eval',
-  entry: [ './src/table.js' ],
+  entry: [ './src/Main.js' ],
   debug: !(NODE_ENV === 'production'),
   output: {
     path: path.join(__dirname, 'build'),
-    filename: 'table.js',
+    filename: 'Main.js',
     publicPath: '/build/'
   },
   module: {
@@ -52,6 +52,6 @@ module.exports = {
   externals: {
     react: 'React',
     'react-dom': 'ReactDOM',
-    jquery: 'jQuery',
+    jquery: 'jQuery'
   }
 }

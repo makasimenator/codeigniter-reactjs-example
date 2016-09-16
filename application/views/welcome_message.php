@@ -5,7 +5,7 @@ $props =
    array('data' => array(
      array(1, 2, 3),
      array(4, 5, 6),
-     array(7, 8, 9)
+     array(7, 11, 9)
    ));
 $propsJson = json_encode($props);
 
@@ -13,8 +13,8 @@ $react = [
        file_get_contents(__DIR__.'/node_modules/react/dist/react.js'),
        file_get_contents(__DIR__.'/node_modules/react-dom/dist/react-dom.min.js'),
        file_get_contents(__DIR__.'/node_modules/react-dom/dist/react-dom-server.min.js'),
-       file_get_contents(__DIR__.'/build/table.js'),
-       'ReactDOMServer.renderToString(React.createElement(App, ' . $propsJson . '))'
+       file_get_contents(__DIR__.'/build/Main.js'),
+       'ReactDOMServer.renderToString(React.createElement(Main, ' . $propsJson . '))'
 ];
 
 try {

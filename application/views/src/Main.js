@@ -1,17 +1,17 @@
-import AppBar  from 'material-ui/AppBar'
+import AppBar from 'material-ui/AppBar'
 import { Table, TableBody, TableRow, TableRowColumn } from 'material-ui/Table'
-import MuiThemeProvider  from 'material-ui/styles/MuiThemeProvider'
-import getMuiTheme  from 'material-ui/styles/getMuiTheme'
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import { Component } from 'react'
-import RowRender  from './RowRender'
+import RowRender from './RowRender'
 
 const theme = getMuiTheme({
-    palette: {
+  palette: {
 //      primary1Color: '#f4511e'
-    }
+  }
 })
 
-class App extends Component {
+class Main extends Component {
 
   render () {
     const rows = this.props.data.map(function (row) {
@@ -42,4 +42,4 @@ class App extends Component {
 
 }
 
-global.App = App
+global.Main = Main
